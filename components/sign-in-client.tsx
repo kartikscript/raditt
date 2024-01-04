@@ -5,8 +5,8 @@ import { signIn, signOut } from "next-auth/react";
 function SignInClient() {
   const loginWithDiscord = async () => {
     try {
-      console.log("discord");
-      await signIn("discord");
+      console.log("google");
+      await signIn("google");
     } catch (error) {
       console.log(error);
     }

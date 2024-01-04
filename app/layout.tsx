@@ -1,8 +1,11 @@
 import Providers from "@/components/providers";
 import "./globals.css";
+import 'react-toastify/dist/ReactToastify.css';
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
+import { ToastContainer } from 'react-toastify';
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,13 +16,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  authModal
 }: {
   children: React.ReactNode;
+  authModal:React.ReactNode
 }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          
+          <Navbar/>
+          {authModal}
+          {children}
+
+          </Providers>
+          <ToastContainer/>
       </body>
     </html>
   );
