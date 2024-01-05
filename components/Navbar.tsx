@@ -9,7 +9,7 @@ const Navbar = async() => {
  
   return (
     <nav className='flex justify-between items-center px-8 py-2 bg-violet-300'>
-         <img className='w-10 h-10' src='./reddit-logo.svg'/>
+         <img className='w-10 h-10' src='/reddit-logo.svg'/>
         {
           session?.user?(
            <UserAccountNav user={session.user}/>

@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
     },
     jwt: async ({ token, user }) => {
       const email = token.email;
-
+     
       const dbUser = (
         await db
           .select()
