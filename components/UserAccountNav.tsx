@@ -1,13 +1,14 @@
 'use client'
 import { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
+import UserAvatar from './UserAvatar'
 
 interface UserAccountNavProps{
   user:Pick<User,'name'|'image'|'email'>
 }
+
 
 const UserAccountNav:FC<UserAccountNavProps> = ({user}) => {
 
@@ -18,19 +19,7 @@ const UserAccountNav:FC<UserAccountNavProps> = ({user}) => {
   }
   return (<>
     <div onClick={()=>handleModal()} className='relative cursor-pointer aspect-square h-10 w-10 rounded-full overflow-hidden'>
-      {user.image?(
-        <Image
-        className='absolute right-0 top-0 '
-        src={user.image}
-        alt='profile image'
-        fill
-        referrerPolicy='no-referrer'
-        />
-      ):(
-        <div >
-          <img className='absolute right-0 top-0 ' src='/user.svg' alt='profile picture'/>
-        </div>
-      )}
+     <UserAvatar user={user}/>
     </div>
 
     {

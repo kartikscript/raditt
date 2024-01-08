@@ -12,6 +12,7 @@ import {
   foreignKey,
   AnyPgColumn,
   pgEnum,
+  uuid,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
 
@@ -19,7 +20,7 @@ import type { AdapterAccount } from "next-auth/adapters";
 export const accounts = pgTable(
   "account",
   {
-    userId: text("userId")
+    userId: uuid("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
@@ -40,7 +41,7 @@ export const accounts = pgTable(
 
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
+  userId: uuid("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
@@ -137,73 +138,73 @@ export const verificationTokens = pgTable(
 
 
 export const users = pgTable("user", {
-    id: serial("id").primaryKey(),
+  id: uuid('id').defaultRandom().primaryKey(),
     name: text("name").notNull(),
     email: text("email").notNull().unique(),
     emailVerified: timestamp("emailVerified", { mode: "date" }),
     image: text("image"),
-    username:text("username").notNull().unique()
+    username:text("username").unique()
   });
 
 export const subreddits=pgTable('subreddit',{
-  id:serial('id').primaryKey(),
+  // id:serial('id').primaryKey(),
+  id: uuid('id').defaultRandom().primaryKey(),
   
   name:text('name').notNull().unique(),
   createdAt:timestamp('created_at',{precision:6,withTimezone:false}).notNull().defaultNow(),
   updatedAt:date('updated_at',{mode:"date"}).defaultNow(),
-
-  authorId:integer('author_id').notNull().references(()=>users.id)
+  creatorId:uuid('creator_id').notNull().references(()=>users.id)
 })
 
 export const posts=pgTable('post',{
-  id:serial('id').primaryKey(),
+  id: uuid('id').defaultRandom().primaryKey(),
   title:text('title').notNull(),
   content:json('content'),
   createdAt:timestamp('created_at',{precision:6,withTimezone:false}).notNull().defaultNow(),
   updatedAt:date('updated_at',{mode:"date"}).defaultNow(),
 
-  subredditId:integer('subreddit_id').notNull().references(()=>subreddits.id),
-  authorId:integer('author_id').notNull().references(()=>users.id)
+  subredditId:uuid('subreddit_id').notNull().references(()=>subreddits.id),
+  authorId:uuid('author_id').notNull().references(()=>users.id)
 })
 
 export const comments=pgTable('comment',{
-  id:serial('id').primaryKey(),
+  id: uuid('id').defaultRandom().primaryKey(),
   text:text('text').notNull(),
   createdAt:timestamp('created_at',{precision:6,withTimezone:false}).notNull().defaultNow(),
 
-  postId:integer('post_id').notNull().references(()=>posts.id),
-  authorId:integer('author_id').notNull().references(()=>users.id),
-  replyTo: text("reply_to").references((): AnyPgColumn => comments.id),
+  postId:uuid('post_id').notNull().references(()=>posts.id),
+  authorId:uuid('author_id').notNull().references(()=>users.id),
+  replyTo: uuid("reply_to").references((): AnyPgColumn => comments.id),
 })
 
 export const replies=pgTable('reply',{
-  id:serial('id').primaryKey(),
+  id: uuid('id').defaultRandom().primaryKey(),
   text:text('text').notNull(),
   createdAt:timestamp('created_at',{precision:6,withTimezone:false}).notNull().defaultNow(),
 
-  authorId:integer('author_id').notNull().references(()=>users.id),
-  commentId:integer('comment_id').notNull().references(()=>comments.id),
-  replyTo: text("reply_to").references((): AnyPgColumn => replies.id),
+  authorId:uuid('author_id').notNull().references(()=>users.id),
+  commentId:uuid('comment_id').notNull().references(()=>comments.id),
+  replyTo: uuid("reply_to").references((): AnyPgColumn => replies.id),
 
 })
 
 export const VoteType = pgEnum('voteType', ['UP', 'DOWN']);
 
 export const commentVotes=pgTable('comment_vote',{
-  authorId:integer('author_id').notNull().references(()=>users.id),
-  commentId:integer('comment_id').notNull().references(()=>comments.id),
+  authorId:uuid('author_id').notNull().references(()=>users.id),
+  commentId:uuid('comment_id').notNull().references(()=>comments.id),
   type:VoteType('type')
 })
 
 export const votes=pgTable('vote',{
-  authorId:integer('author_id').notNull().references(()=>users.id),
-  postId:integer('post_id').notNull().references(()=>posts.id),
+  authorId:uuid('author_id').notNull().references(()=>users.id),
+  postId:uuid('post_id').notNull().references(()=>posts.id),
   type:VoteType('type')
 })
 
 export const subscriptions=pgTable('subscription',{
-  authorId:integer('author_id').notNull().references(()=>users.id),
-  subredditId:integer('subreddit_id').notNull().references(()=>subreddits.id),
+  authorId:uuid('author_id').notNull().references(()=>users.id),
+  subredditId:uuid('subreddit_id').notNull().references(()=>subreddits.id),
 })
 
 
@@ -221,7 +222,7 @@ export const userRelations=relations(users,({one,many})=>({
 export const subredditRelations=relations(subreddits,({one,many})=>({
   post:many(posts),
   author:one(users,{
-    fields:[subreddits.authorId],
+    fields:[subreddits.creatorId],
     references:[users.id]
   })
 }))
