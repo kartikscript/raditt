@@ -7,18 +7,17 @@ interface UserAvatarProps{
 }
 const UserAvatar = ({user}:UserAvatarProps) => {
   return (
-    <div>
+    <div className='aspect-square   overflow-hidden'>
          {user.image?(
-        <Image
-        className='absolute right-0 top-0 '
+        <img
         src={user.image}
         alt='profile image'
-        fill
+        className='rounded-full w-10 h-10'
         referrerPolicy='no-referrer'
         />
       ):(
         <div >
-          <img className='absolute right-0 top-0 ' src='/user.svg' alt='profile picture'/>
+          <img  src='/user.svg' alt='profile picture'/>
         </div>
       )}
     </div>

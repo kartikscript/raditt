@@ -18,7 +18,7 @@ const UserAccountNav:FC<UserAccountNavProps> = ({user}) => {
     setModal(prev=>!prev)
   }
   return (<>
-    <div onClick={()=>handleModal()} className='relative cursor-pointer aspect-square h-10 w-10 rounded-full overflow-hidden'>
+    <div onClick={()=>handleModal()} className='relative cursor-pointer '>
      <UserAvatar user={user}/>
     </div>
 
@@ -33,7 +33,7 @@ const UserAccountNav:FC<UserAccountNavProps> = ({user}) => {
            <Link className='hover:bg-gray-200 hover:text-gray-700 p-2 transition-all font-semibold rounded-lg' href='/'>Feed</Link>
            <Link className='hover:bg-gray-200 hover:text-gray-700 p-2 transition-all font-semibold rounded-lg' href='/'>Create Community</Link>
            <Link className='hover:bg-gray-200 hover:text-gray-700 p-2 transition-all font-semibold rounded-lg' href='/'>Settings</Link>
-           <button onClick={()=>signOut({callbackUrl:`${window.location.origin}/sign-in`})} className='mt-2 text-start hover:bg-gray-200 hover:text-gray-800 px-2 py-1 transition-all font-bold rounded-lg' >Sign out</button>
+           <button onClick={()=>signOut({callbackUrl:`${window.location.origin}/sign-in`})} className='mt-2 text-start hover:bg-red-200 hover:text-gray-800 px-2 py-1 transition-all font-bold rounded-lg' >Sign out</button>
         </div>
         <div onClick={()=>handleModal()} className=' fixed top-0 left-0 w-full h-full opacity-10 z-40'></div>
         </>
