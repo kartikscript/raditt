@@ -22,9 +22,9 @@ const page = async ({params}:PageProps) => {
   console.log(result)
   
   return (
-    <div className='bg-violet-100  min-h-screen flex justify-center items-start'>
-    <div className='w-9/12 rounded-lg shadow-xl  my-12 p-4 bg-violet-400'>
-        <h1 className='font-bold text-3xl mb-6 text-violet-100'>r/{result[0].subreddit.name}</h1>
+    <div className=' flex justify-center items-start'>
+    <div className='w-full rounded-lg shadow-xl  p-4 bg-violet-400'>
+        <h1 className='font-bold text-3xl mb-6 text-gray-800'>r/{result[0].subreddit.name}</h1>
         <MiniCreatePost session={session}/>
     </div>
     <div>

@@ -1,14 +1,13 @@
-import Image from 'next/image'
 import { User } from 'next-auth'
 
 
 interface UserAvatarProps{
-  user:Pick<User,'name'|'image'|'email'>
+  user:Pick<User,'name'|'image'|'email'>|undefined
 }
 const UserAvatar = ({user}:UserAvatarProps) => {
   return (
     <div className='aspect-square   overflow-hidden'>
-         {user.image?(
+         {user?.image?(
         <img
         src={user.image}
         alt='profile image'

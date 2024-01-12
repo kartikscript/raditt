@@ -19,7 +19,7 @@ export async function POST(req:Request){
     const {name}=SubredditValidator.parse(body)//if name is not provided then will make error in catch block
 
     const subredditExists= await db.select().from(subreddits).where(eq(subreddits.name,name))
-    console.log(subredditExists,typeof subredditExists)
+
     if(subredditExists[0]){
       return new Response('Subreddit already exists',{status:409})
     }
