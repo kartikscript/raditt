@@ -50,9 +50,9 @@ const Layout = async ({
   console.log(memberCountInfo);
 
   return (
-    <div className=" flex items-start p-12 gap-8 bg-violet-100  min-h-screen">
+    <div className=" flex items-start p-12 gap-8 bg-gradient-to-l from-violet-500 to-violet-400  min-h-screen">
       <div className="w-full">{children}</div>
-      <div className="p-4 w-3/12 bg-violet-300 flex flex-col gap-2 text-md text-gray-600 font-semibold rounded-xl">
+      <div className="p-4 w-3/12 bg-violet-400 flex flex-col gap-2 text-md text-gray-600 font-semibold rounded-xl">
         <h1 className="text-xl font-bold text-gray-700 mb-1">
           About r/{subredditInfo[0].subreddit.name}
         </h1>

@@ -24,7 +24,7 @@ const page = async ({params}:PageProps) => {
   return (
     <div className=' flex justify-center items-start'>
     <div className='w-full rounded-lg shadow-xl  p-4 bg-violet-400'>
-       <h1 className='font-bold text-3xl mb-6 text-gray-800'>Create Post <span className="text-gray-600 text-xl">in r/{`${slug}`}</span></h1>
+       <h1 className='font-extrabold tracking-tighter text-5xl mb-6 text-gray-800'>Create Post <span className="text-gray-600 text-2xl">in r/{`${slug}`}</span></h1>
        <Editor/>
     </div>
     </div>

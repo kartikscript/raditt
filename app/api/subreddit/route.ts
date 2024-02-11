@@ -23,7 +23,7 @@ export async function POST(req:Request){
     if(subredditExists[0]){
       return new Response('Subreddit already exists',{status:409})
     }
-
+      //if does not exist create
     const newSubreddit=await db.insert(subreddits).values({
       name:name,
       creatorId:session.user.id,

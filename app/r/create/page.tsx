@@ -63,7 +63,7 @@ const page = () => {
         <div className=' mt-8 flex gap-6'>
           <button onClick={()=>router.back()} className='p-3 rounded-md font-semibold text-white/70 bg-gray-800 hover:bg-gray-900 hover:text-white/90'>Cancel</button>
           <button onClick={()=>createCommunity()} disabled={input.length===0} className='flex items-center gap-2 p-3 disabled:bg-gray-700  rounded-md font-semibold bg-gray-900 text-lg text-white/80 focus:ring-4 focus:ring-violet-500 hover:text-white focus:bg-gray-950'>
-            {isLoading && <img src='/loaderr.svg' alt='loader' className='w-8 h-8'/>}
+            {isLoading && <img src='/loaderr.svg' alt='loader' className='w-6 h-6'/>}
             Create Community
           </button>
         </div>

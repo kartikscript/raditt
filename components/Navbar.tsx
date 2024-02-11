@@ -8,8 +8,8 @@ const Navbar = async() => {
   const session=await getAuthSession()
  
   return (
-    <nav className='flex justify-between items-center px-8 py-2 bg-violet-300'>
-         <img className='w-10 h-10' src='/reddit-logo.svg'/>
+    <nav className='flex justify-between items-center px-8 py-2  bg-gradient-to-r from-violet-700  to-violet-400'>
+         <img className='w-10 h-10' src='/redditlogo.svg'/>
         {
           session?.user?(
            <UserAccountNav user={session.user}/>
